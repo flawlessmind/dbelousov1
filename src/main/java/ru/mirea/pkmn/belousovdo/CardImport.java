@@ -90,7 +90,6 @@ public class CardImport {
         return (Card) objectInputStream.readObject();
     }
 
-    // Метод для парсинга EnergyType
     private EnergyType parseEnergyType(String energyTypeString) {
         try {
             return EnergyType.valueOf(energyTypeString.toUpperCase());
@@ -99,7 +98,6 @@ public class CardImport {
         }
     }
 
-    // Метод для получения информации о навыках с описанием (можно использовать для тестирования)
     private void SkillsWithDescription() throws IOException {
         PkmnHttpClient pkmnHttpClient = new PkmnHttpClient();
         JsonNode card1 = pkmnHttpClient.getPokemonCard("Blissey", "203");
