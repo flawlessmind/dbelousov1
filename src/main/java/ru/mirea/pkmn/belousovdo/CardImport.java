@@ -100,7 +100,7 @@ public class CardImport {
 
     private void SkillsWithDescription() throws IOException {
         PkmnHttpClient pkmnHttpClient = new PkmnHttpClient();
-        JsonNode card1 = pkmnHttpClient.getPokemonCard("Blissey", "203");
+        JsonNode card1 = pkmnHttpClient.getPokemonCard("Mewtwo", "150");
         System.out.println(card1.toPrettyString());
     }
 }
