@@ -25,5 +25,7 @@ public class PokemonApplication {
                 .stream()
                 .map(JsonNode::toPrettyString)
                 .collect(Collectors.toSet()));
+        Card cardik = CardImport.SImport("src\\main\\resources\\Mewtwo.crd");
+        System.out.printf(cardik.toString());
     }
 }
