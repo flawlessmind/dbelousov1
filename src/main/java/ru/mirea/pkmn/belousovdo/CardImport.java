@@ -29,24 +29,21 @@ public class CardImport {
         Import(filename);
         Card cardFrom = null;
 
-        // Получаем данные о покемоне, который эволюционирует
         if (!reportData[4].equals("-")) {
             cardFrom = new CardImport().Fill(reportData[4]);
         }
 
         List<AttackSkill> skills = new ArrayList<>();
 
-        // Предполагается, что данные атак находятся в JSON-ответе, который мы получаем из API
         PkmnHttpClient pkmnHttpClient = new PkmnHttpClient();
         JsonNode jsonResponse = pkmnHttpClient.getPokemonCard(reportData[1], reportData[12]); // Используем имя покемона и его номер
 
-        // Извлекаем информацию об атаках
         JsonNode attacksNode = jsonResponse.path("data").get(0).path("attacks");
 
         for (JsonNode attackNode : attacksNode) {
             String name = attackNode.path("name").asText();
 
-            // Получаем массив значений стоимости и конвертируем их в строку
+
             List<String> costs = new ArrayList<>();
             for (JsonNode costNode : attackNode.path("cost")) {
                 costs.add(costNode.asText());
@@ -55,7 +52,6 @@ public class CardImport {
 
             String text = attackNode.path("text").asText();
 
-            // Предполагаем, что damage - это строка и может содержать символы (например, "20×")
             String damageString = attackNode.path("damage").asText();
             int damage = damageString.contains("×") ? Integer.parseInt(damageString.replace("×", "").trim()) : Integer.parseInt(damageString);
 
@@ -63,11 +59,9 @@ public class CardImport {
             skills.add(attackSkill);
         }
 
-        // Извлечение информации о студенте
         String[] studentData = reportData[11].split("/");
         Student student = new Student(studentData[1], studentData[0], studentData[2], studentData[3]);
 
-        // Извлечение информации о слабостях и сопротивлениях
         EnergyType weakness = parseEnergyType(reportData[6]);
         EnergyType resistance = parseEnergyType(reportData[7]);
 
